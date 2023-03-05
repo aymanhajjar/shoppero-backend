@@ -6,7 +6,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 $product_id = $data['product_id'];
 
 // Find product with matching ID in database
-$stmt = $conn->prepare("SELECT * FROM products WHERE id = :product_id");
+$stmt = $mysqli->prepare("SELECT * FROM products WHERE id = :product_id");
 $stmt->bindParam(':product_id', $product_id);
 $stmt->execute();
 $product = $stmt->fetch();
@@ -19,7 +19,7 @@ if (!$product) {
 }
 
 // Add product to cart in database
-$stmt = $conn->prepare("INSERT INTO carts (product_id) VALUES (:product_id)");
+$stmt = $mysqli->prepare("INSERT INTO carts (product_id) VALUES (:product_id)");
 $stmt->bindParam(':product_id', $product_id);
 $stmt->execute();
 
