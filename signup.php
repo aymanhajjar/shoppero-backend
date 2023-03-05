@@ -19,7 +19,7 @@
 
         if(strlen($password) >= 8 && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $password)
         && preg_match('/[a-z]/', $password)) {
-            $query = $mysqli->prepare('insert into users(first_name, last_name, email, password) values(?,?,?,?');
+            $query = $mysqli->prepare('insert into users(first_name, last_name, email, password) values(?,?,?,?)');
             $query->bind_param('ssss', $first_name, $last_name, $email, $password);
             $query->execute();
             $response['status'] = 'user added';
