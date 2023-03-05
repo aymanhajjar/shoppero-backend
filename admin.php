@@ -2,12 +2,12 @@
 include('connection.php');
 header('Access-Control-Allow-Origin: *');
 
- $sql="select * from users;";
- $result=mysqli_query($mysqli, $sql);
- $resultCheck=mysqli_num_rows($result);
- if($resultCheck>0){
-    while($row=mysqli_fetch_assoc($result)){
-        echo json_encode($row);
-    }
- }
+$first_name=$_post['first-name'];
+$last_name=$_post['lastname'];
+$phone_number=$_POST['phone-number'];
+$email=$_POST['email'];
+// reminder to add the id in the where clause
+
+$sql="update admins set first_name=$first_name, last_name=$last_name,email=$email where id=$id;";
+mysqli_query($mysqli, $sql);
 ?>
