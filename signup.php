@@ -1,5 +1,6 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
     include('connection.php');
 
     $first_name = $_POST['first_name'];

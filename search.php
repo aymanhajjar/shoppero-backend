@@ -4,7 +4,7 @@
 
     $query = $_GET['query'];
 
-    $search = $mysqli->prepare('select id, product_name, price, discount from products where product_name like ?');
+    $search = $mysqli->prepare('select p.id, p.product_name, p.price, c.image, p.discount from products p join product_colors c on p.id = c.product_id  where p.product_name like ? and p.main_color = c.color_id');
     $query_string = '%' . $query . '%';
     $search->bind_param('s', $query_string);
     $search->execute();
