@@ -2,17 +2,17 @@
 include('connection.php');
 header('Access-Control-Allow-Origin: *');
 
-$product_name=$_post['product_name'];
-$description=$_post['description'];
-$price=$_post['price'];
-$main_color=$_post['main_color'];
-$for_men=$_post['for_men'];
-$subcategory=$_post['subcategory'];
-$brand=$_post['brand'];
-$discount=$_post['discount'];
-$product_size=$_post['product_size'];
-$product_material=$_post['product_material'];
-$product_image=$_post['product_image'];
+$product_name=$_POST['product_name'];
+$description=$_POST['description'];
+$price=$_POST['price'];
+$main_color=$_POST['main_color'];
+$for_men=$_POST['for_men'];
+$subcategory=$_POST['subcategory'];
+$brand=$_POST['brand'];
+$discount=$_POST['discount'];
+$product_size=$_POST['product_size'];
+$product_material=$_POST['product_material'];
+$product_image=$_POST['product_image'];
 
 $check_product = $mysqli->prepare('select product_name from products where product_name=?');
     $check_product->bind_param('s', $product_name);
