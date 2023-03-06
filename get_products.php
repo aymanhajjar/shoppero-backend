@@ -13,4 +13,4 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
      $response[] = $a;
  }
  echo json_encode($response);
- 
+ ?>
