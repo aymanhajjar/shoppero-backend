@@ -1,15 +1,12 @@
 <?php
+header('Access-Control-Allow-Origin: *');
  include('connection.php');
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Get product ID from JSON data
-$product_id = $data['product_id'];
-
+$product_id  = $_GET['product_id'];
 // Find product with matching ID in database
-$stmt = $mysqli->prepare("SELECT * FROM products WHERE id = :product_id");
-$stmt->bindParam(':product_id', $product_id);
-$stmt->execute();
-$product = $stmt->fetch();
+$query = $mysqli->prepare('select * from products WHERE id =?');
+$query->bind_param('s',$product_id );
+$query->execute();
+$product = $query->fetch();
 
 // If no product found, return error response
 if (!$product) {
