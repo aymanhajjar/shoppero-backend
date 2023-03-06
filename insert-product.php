@@ -35,5 +35,4 @@ $check_product = $mysqli->prepare('select product_name from products where produ
         $response['status'] = 'added';
         echo json_encode($response);
     }
-
 ?>
