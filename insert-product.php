@@ -4,8 +4,9 @@ header('Access-Control-Allow-Origin: *');
 
 $product_name=$_POST['product_name'];
 $description=$_POST['description'];
-$price=$_POST['price'];
+$price=$_POST['product_price'];
 $main_color=$_POST['main_color'];
+$product=$_POST['product_color'];
 $for_men=$_POST['for_men'];
 $subcategory=$_POST['subcategory'];
 $brand=$_POST['brand'];
