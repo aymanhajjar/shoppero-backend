@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 include('connection.php');
 
 $check = $mysqli->prepare('select subcategory_name from subcategories where id=1');
