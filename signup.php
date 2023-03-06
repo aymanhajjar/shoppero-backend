@@ -21,10 +21,12 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
 
         if(strlen($password) >= 8 && preg_match('/[A-Z]/', $password) && preg_match('/\d/', $password) && preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $password)
         && preg_match('/[a-z]/', $password)) {
-            $query = $mysqli->prepare('insert into users(first_name, last_name, email, password) values(?,?,?,?');
-            $query->bind_param('ssss', $first_name, $last_name, $email, $password);
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+            $query = $mysqli->prepare('insert into users(first_name, last_name, email, password) values(?,?,?,?)');
+            $query->bind_param('ssss', $first_name, $last_name, $email, $hashed_password);
             $query->execute();
             $response['status'] = 'user added';
+            $response['first_name'] = $first_name;
             echo json_encode($response);
 
         } else {
