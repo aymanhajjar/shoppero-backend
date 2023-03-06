@@ -3,7 +3,7 @@ include('connection.php');
 header('Access-Control-Allow-Origin: *');
 
 
- $sql="select id from users;";
+ $sql="select * from users;";
  $result=mysqli_query($mysqli, $sql);
  $resultCheck=mysqli_num_rows($result);
 
