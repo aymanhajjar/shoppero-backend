@@ -14,12 +14,12 @@ $favorites_exists = $favorites->num_rows();
 
 if ($favorites_exists > 0) {
     $delete = $mysqli->prepare('delete from wishlists where user_id=? and product_id=?');
-    $delete->bind_param('ss', $user, $product);
+    $delete->bind_param('ss', $user_id, $product_id);
     $delete->execute();
     echo json_encode(array("success" => true, "message" => "Product removed from wishlist"));
 } else {
     $insert = $mysqli->prepare('insert into wishlists (user_id, product_id) values (?, ?)');
-    $insert->bind_param('ss', $user, $product);
+    $insert->bind_param('ss', $user_id, $product_id);
     $insert->execute();
     echo json_encode(array("success" => true, "message" => "Product added to wishlist"));
 }
