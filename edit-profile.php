@@ -3,19 +3,39 @@ session_start();
 header('Access-Control-Allow-Origin: *');
 include('connection.php');
 
-$first_name=$_POST['first-name'];
-$last_name=$_POST['last-name'];
-$phone_number=$_POST['phone-number'];
+$first_name=$_POST['first_name'];
+$last_name=$_POST['last_name'];
+$phone_number=$_POST['phone_number'];
 $email=$_POST['email'];
-$shipping_address=$_POST['shipping-address'];
+$shipping_address=$_POST['shipping_address'];
 
-$sql="select id from users where email=$email;";
-$id=mysqli_query($mysqli, $sql);
-$user_exists=mysqli_num_rows($id);
+$id = $_SESSION['user_id'];
 
-if($user_exists > 0) {
-    $response['status'] = 'exist';
-    $sql1="update admins set first_name=$first_name, last_name=$last_name,phone_number=$phone_number,shipping_address=$shipping_address where id=$id;";
-    mysqli_query($mysqli, $sql1);
+if(isset($shipping_address) && isset($phone_number)) {
+    $sql1 = $mysqli->prepare("UPDATE users SET first_name=?, last_name=? WHERE id=?");
+    $sql1->bind_param('ssi', $first_name, $last_name, $id);
+    $sql1->execute();
+    $response['status'] = $shipping_address . 'ok';
+    echo json_encode($response);
+} else if (isset($shipping_address)) {
+    // $sql1 = $mysqli->prepare("UPDATE users SET first_name=?, last_name=?, shipping_address=? WHERE id=?");
+    // $sql1->bind_param('sssi', $first_name, $last_name, $shipping_address, $id);
+    // $sql1->execute();
+    // $response['status'] = 'success';
+    // echo json_encode($response);
+} else if (isset($phone_number)) {
+    // $sql1 = $mysqli->prepare("UPDATE users SET first_name=?, last_name=?, phone_number=? WHERE id=?");
+    // $sql1->bind_param('sssi', $first_name, $last_name, $phone_number, $id);
+    // $sql1->execute();
+    // $response['status'] = 'success';
+    // echo json_encode($response);
+} else {
+    // $sql1 = $mysqli->prepare("UPDATE users SET first_name=?, last_name=? WHERE id=?");
+    // $sql1->bind_param('ssi', $first_name, $last_name, $id);
+    // $sql1->execute();
+    // $response['status'] = 'success';
+    // echo json_encode($response);
 }
+
+    
 ?>
