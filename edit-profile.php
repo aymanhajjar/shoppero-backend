@@ -3,20 +3,19 @@ session_start();
 header('Access-Control-Allow-Origin: *');
 include('connection.php');
 
+$first_name=$_POST['first-name'];
+$last_name=$_POST['last-name'];
+$phone_number=$_POST['phone-number'];
+$email=$_POST['email'];
+$shipping_address=$_POST['shipping-address'];
 
+$sql="select id from users where email=$email;";
+$id=mysqli_query($mysqli, $sql);
+$user_exists=mysqli_num_rows($id);
 
-// $check_admin = $mysqli->prepare('select id from admins');
-//     $check_product->bind_param('s', $product_name);
-//     $check_product->execute();
-//     $check_product->store_result();
-//     $product_exists = $check_product->num_rows();
-
-
-// $first_name=$_POST['first-name'];
-// $last_name=$_POST['lastname'];
-// $phone_number=$_POST['phone-number'];
-// $email=$_POST['email'];
-
-// $sql="update admins set first_name=$first_name, last_name=$last_name,email=$email where id=$id;";
-// mysqli_query($mysqli, $sql);
+if($user_exists > 0) {
+    $response['status'] = 'exist';
+    $sql1="update admins set first_name=$first_name, last_name=$last_name,phone_number=$phone_number,shipping_address=$shipping_address where id=$id;";
+    mysqli_query($mysqli, $sql1);
+}
 ?>
