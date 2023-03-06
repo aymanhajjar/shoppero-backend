@@ -20,6 +20,7 @@
         if(password_verify($password, $hashed_password)) {
             $_SESSION['loggedin'] = true;
             $_SESSION['first_name'] = $first_name;
+            $_SESSION['user_id'] = $id;
             $response['status'] = 'user logged in';
             $response['first_name'] = $first_name;
             echo json_encode($response);
