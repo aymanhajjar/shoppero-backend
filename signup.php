@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
     include('connection.php');
@@ -25,6 +26,9 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
             $query = $mysqli->prepare('insert into users(first_name, last_name, email, password) values(?,?,?,?)');
             $query->bind_param('ssss', $first_name, $last_name, $email, $hashed_password);
             $query->execute();
+            $_SESSION['loggedin'] = true;
+            $_SESSION['first_name'] = $first_name;
+            $_SESSION['user_id'] = $id;
             $response['status'] = 'user added';
             $response['first_name'] = $first_name;
             echo json_encode($response);
