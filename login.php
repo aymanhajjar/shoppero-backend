@@ -32,5 +32,3 @@
         $response['status'] = 'user does not exist';
         echo json_encode($response);
     }
-
-?>
