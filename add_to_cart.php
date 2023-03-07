@@ -1,26 +1,16 @@
 <?php
+session_start();
 header('Access-Control-Allow-Origin: *');
  include('connection.php');
-$product_id  = $_GET['product_id'];
-// Find product with matching ID in database
-$query = $mysqli->prepare('select * from products WHERE id =?');
-$query->bind_param('s',$product_id );
+$product_id  = $_POST['product_id'];
+$user_id = $_SESSION['user_id'];
+
+$query = $mysqli->prepare('INSERT INTO carts (user_id, product_id, quantity) VALUES (?, ?, ?)');
+$quantity = 1;
+$query->bind_param('iii',$user_id, $product_id, $quantity );
 $query->execute();
-$product = $query->fetch();
-
-// If no product found, return error response
-if (!$product) {
-    http_response_code(404);
-    echo json_encode(array('error' => 'Product not found'));
-    exit();
-}
-
-// Add product to cart in database
-$stmt = $mysqli->prepare("INSERT INTO carts (product_id) VALUES (:product_id)");
-$stmt->bindParam(':product_id', $product_id);
-$stmt->execute();
 
 // Return success response
 http_response_code(200);
-echo json_encode(array('success' => true));
+echo json_encode(array('success' => $product_id));
 ?>
